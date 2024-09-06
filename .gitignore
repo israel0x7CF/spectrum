@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/java/com/spectrun/spectrum/controllers/test/
+/src/main/resources/application.properties

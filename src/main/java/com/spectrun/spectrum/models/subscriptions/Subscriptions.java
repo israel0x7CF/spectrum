@@ -1,10 +1,10 @@
 package com.spectrun.spectrum.models.subscriptions;
 
+import com.spectrun.spectrum.models.users.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,7 +27,7 @@ public class Subscriptions {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @OneToOne(mappedBy = "subscription")
-    private User user;
+//    @OneToOne(mappedBy = "subscription")
+//    private Users user;
 
 }
