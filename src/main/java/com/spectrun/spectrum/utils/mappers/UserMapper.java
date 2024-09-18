@@ -1,7 +1,7 @@
 package com.spectrun.spectrum.utils.mappers;
 
 import com.spectrun.spectrum.DTO.UserDTO;
-import com.spectrun.spectrum.models.users.Users;
+import com.spectrun.spectrum.models.Users;
 
 public class UserMapper {
 

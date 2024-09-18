@@ -1,5 +1,6 @@
-package com.spectrun.spectrum.models.instances;
+package com.spectrun.spectrum.models;
 
+import com.spectrun.spectrum.models.Plan;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,23 +11,29 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="instances")
-public class Instances {
+@Data
+@Builder
+@Table(name="subscriptions")
+public class Subscriptions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String InstanceName;
-    private String address;
+    private long Id;
+    private double pricing;
+    private String[] offers;
+    private String status;
+    private String billing_cycle;
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp
     private LocalDateTime updatedOn;
-
+    @Embedded
+    UsageLimits usageLimits;
+    @ManyToOne
+    @JoinColumn(name = "plan_id", nullable = false)
+    private Plan plan; // the selected subscription plan
 
 
 }

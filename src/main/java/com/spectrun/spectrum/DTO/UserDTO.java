@@ -1,10 +1,7 @@
 package com.spectrun.spectrum.DTO;
 
-import com.spectrun.spectrum.models.subscriptions.Subscriptions;
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 

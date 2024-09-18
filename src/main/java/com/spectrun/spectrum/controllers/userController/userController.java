@@ -1,7 +1,7 @@
 package com.spectrun.spectrum.controllers.userController;
 
 import com.spectrun.spectrum.DTO.UserDTO;
-import com.spectrun.spectrum.models.users.Users;
+import com.spectrun.spectrum.models.Users;
 import com.spectrun.spectrum.services.Implementations.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
