@@ -27,7 +27,7 @@ public class SubscriptionManager {
     }
 
 
-    @PostMapping("/create/subscription")
+    @PostMapping("/register/subscription")
     public ResponseEntity<SubscriptionDTO> addSubscription(@RequestBody SubscriptionDTO subscriptionDTO){
         try {
             SubscriptionDTO subscriptionDTO1 = this.subscriptionService.createSubscription(subscriptionDTO);

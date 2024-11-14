@@ -14,14 +14,12 @@ import java.time.LocalDateTime;
 @Builder
 public class SubscriptionDTO {
 
-    private long Id;
+    private long id; // Correct capitalization for 'Id'
     private double pricing;
-    private String[] offers;
     private String status;
     private String billing_cycle;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
-    UsageLimits usageLimits;
-    private Plan plan;
-    private long planId;
+    private UsageLimits usageLimits;
+    private long planId; // The ID of the Plan
 }

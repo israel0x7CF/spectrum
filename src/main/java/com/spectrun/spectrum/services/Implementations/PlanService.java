@@ -30,8 +30,9 @@ public class PlanService implements IPlan {
     @Override
     public PlanDTO createSubscriptionPlan(PlanDTO newPlan) {
         Plan plan = convertToEntity(newPlan);
+
         Plan planEntity = this.planRepository.save(plan);
-        return  newPlan;
+        return  this.convertToDto(planEntity);
 
     }
 

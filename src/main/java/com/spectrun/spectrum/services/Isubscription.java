@@ -8,4 +8,5 @@ import java.util.List;
 public interface Isubscription {
     public SubscriptionDTO createSubscription(SubscriptionDTO subscriptionDTO);
     public List<SubscriptionDTO> getAllSubscriptions();
+    public Subscriptions getSubscriptionById(long id);
 }
