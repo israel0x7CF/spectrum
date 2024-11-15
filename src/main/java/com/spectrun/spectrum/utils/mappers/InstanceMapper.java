@@ -16,6 +16,10 @@ public interface InstanceMapper {
     @Mapping(target = "instanceaddress", source = "instanceaddress")
     @Mapping(target = "supportedVersion", source = "supportedVersion")
     @Mapping(target = "status", source = "status")
+    @Mapping(target = "configurationFileLocation", source = "configurationFileLocation")
+    @Mapping(target = "adminUserName", source = "adminUserName")
+    @Mapping(target = "adminPassword", source = "adminPassword")
+    @Mapping(target = "user", source = "users")
     @Mapping(target = "createdOn", source = "createdOn")
     @Mapping(target = "updatedOn", source = "updatedOn")
     Instances instanceDtoToInstances(InstanceDto instanceDto);

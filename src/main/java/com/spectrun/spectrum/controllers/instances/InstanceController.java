@@ -1,9 +1,6 @@
 package com.spectrun.spectrum.controllers.instances;
 
-import com.spectrun.spectrum.DTO.InstanceDto;
-import com.spectrun.spectrum.DTO.InstanceModuleDto;
-import com.spectrun.spectrum.DTO.ModuleDto;
-import com.spectrun.spectrum.DTO.UserDTO;
+import com.spectrun.spectrum.DTO.*;
 import com.spectrun.spectrum.Enums.Status;
 import com.spectrun.spectrum.MessageTemplate.createInstanceTemplate;
 import com.spectrun.spectrum.models.Instances;
@@ -12,12 +9,15 @@ import com.spectrun.spectrum.services.Implementations.InstanceService;
 import com.spectrun.spectrum.services.Implementations.JWTService;
 import com.spectrun.spectrum.services.Implementations.ModuleService;
 import com.spectrun.spectrum.services.Implementations.UserService;
+import com.spectrun.spectrum.utils.API.RequestDTO.InstallModuleDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URL;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -35,6 +35,18 @@ public class InstanceController {
         this.userService = userService;
     }
 
+    private String getPortFromAddress(String url) throws Exception {
+        String port;
+        try{
+            URL parsedUrl = new URL(url);
+            port = String.valueOf(parsedUrl.getPort());
+            return  port;
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+    }
     @PostMapping("/create/instance")
     public ResponseEntity<?> createNewInstance(@RequestBody InstanceModuleDto installationData){
         InstanceDto newInstance = installationData.getInstallationInstance();
@@ -86,13 +98,23 @@ public class InstanceController {
     }
 
     @PostMapping("/install")
-    public ResponseEntity <?>InstallModuleToInstance(@RequestParam long instanceId,@RequestParam long moduleId){
+    public ResponseEntity <?>InstallModuleToInstance(@RequestParam long instanceId,@RequestParam long moduleId) throws Exception {
         ModuleDto moduleDto = this.moduleService.getModuleById(moduleId);
         InstanceDto instance = this.instanceService.getInstanceById(instanceId);
         String host = "127.0.0.1";
         String moduleName = moduleDto.getModuleName();
         String db = instance.getInstancedbName();
-        String port = instance.ge
+        String admin = instance.getAdminUserName();
+        String adminPassword = instance.getAdminPassword();
+        String port = getPortFromAddress(instance.getInstanceaddress());
+        InstallModuleDto moduleInfo = new InstallModuleDto();
+        moduleInfo.setDb(db);
+        moduleInfo.setHost(host);
+        moduleInfo.setUser(admin);
+        moduleInfo.setPassword(adminPassword);
+        moduleInfo.setPort(port);
+        moduleInfo.setModule(moduleName);
+
         return ResponseEntity.ok("Status: " + instanceId + ", Active: " + moduleId);
     }
 

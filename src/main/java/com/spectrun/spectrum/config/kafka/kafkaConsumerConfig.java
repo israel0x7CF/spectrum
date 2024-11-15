@@ -22,18 +22,20 @@ public class kafkaConsumerConfig {
     public ConsumerFactory<String, createInstanceResponse> createInstanceConsumer() {
         Map<String, Object> props = new HashMap<>();
 
-        // Set the broker address
+        // Broker address
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
 
-        // Set the group ID (ensure consistency with the listener)
+        // Group ID
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "response_group");
 
-        // Set key deserializer
+        // Key deserializer
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
-        // Configure the JsonDeserializer directly without conflicting properties
+        // Configure JsonDeserializer
         JsonDeserializer<createInstanceResponse> jsonDeserializer = new JsonDeserializer<>(createInstanceResponse.class);
-        jsonDeserializer.addTrustedPackages("com.spectrun.spectrum.MessageTemplate");
+        jsonDeserializer.addTrustedPackages("*"); // Allows all trusted packages
+        jsonDeserializer.setRemoveTypeHeaders(false); // Don't expect Spring-specific headers
+        jsonDeserializer.setUseTypeMapperForKey(false); // Allow raw JSON without type info
 
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), jsonDeserializer);
     }
@@ -43,6 +45,11 @@ public class kafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, createInstanceResponse> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(createInstanceConsumer());
+
+        // Error handler for deserialization issues
+
+
         return factory;
     }
 }
+
